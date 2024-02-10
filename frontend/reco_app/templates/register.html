@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+</head>
+
+<body>
+    <h2>Register</h2>
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input class="form-control" autofocus type="text" name="full_name" placeholder="Full Name">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="email" name="email" placeholder="Email Address">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="number" name="age" placeholder="Age">
+        </div>
+
+        <select name="gender">
+            <option value="" disabled selected>Gender</option>
+            <option value="m">Male</option>
+            <option value="f">Female</option>
+        </select>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="phone_number" placeholder="Phone Number">
+        </div>  
+
+        <select name="work_status">
+            <option value="" disabled selected>Work Status</option>
+            <option value="student">Student</option>
+            <option value="employed">Employed</option>
+            <option value="unemployed">Unemployed</option>
+        </select>
+
+        <select name="immigration_status">
+            <option value="" disabled selected>Immigration Status</option>
+            <option value="citizen">Citizen</option>
+            <option value="pr">PR</option>
+            <option value="student visa">Student Visa</option>
+            <option value="other">Other</option>
+        </select>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="skills" placeholder="Skills">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="interests" placeholder="Interests">
+        </div>
+        
+        <div class="form-group">
+            <input class="form-control" type="text" name="past_volunteer_experience" placeholder="Past Volunteer Experience">
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Register">
+    </form>
+    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+</body>
+
+</html>

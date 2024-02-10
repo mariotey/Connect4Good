@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div style="display: flex; justify-content: flex-end; margin: 50px;">
+        {% if admin_status %}
+            <div>
+                <a href="{% url 'create_event' %}"> Create Event </a>
+            </div>
+        {% endif %}
+        
+        {% if username != "None" %}   
+            <div style = "margin: 0px 10px;">
+                Welcome, 
+                    <a href = "{% url 'user' user_email=user_email %}">{{ username }}</a>
+                !
+            </div>
+            <div>
+                <a href="{% url 'logout' %}"> Logout </a>        
+            </div>
+        {% else %}
+            <div>
+                <a href="{% url 'login' %}"> Login </a>        
+            </div>
+        {% endif %}
+    </div>
+
+    <div style="margin: 50px;">
+        <h1>Events</h1> 
+        <div style="display: flex;">
+            {% for event in events %}
+                <div style="width: 200px; padding: 20px; margin: 20px; border-radius: 5px; border: solid black 1px;">
+                    <strong> {{ event }} </strong>
+                    <div>
+                        <a href="{% url 'event' event_title=event %}">Click here</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    &nbsp;
+    
+    <div style="margin: 50px;">
+        <h1> Registered Events </h1>
+        <div style="display: flex;"></div>
+            {% if registered|length == 0 %}
+                <div style="padding: 20px; margin: 20px;"> 
+                    You have not registered any Events!
+                </div>
+            {% else %}
+                {% for event in registered %}
+                    <div style="width: 200px; padding: 20px; margin: 20px; border-radius: 5px; border: solid black 1px;">
+                        <strong> {{ event }} </strong>
+                        <div>
+                            <a href="{% url 'event' event_title=event %}">Click here</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    &nbsp;
+
+    {% if username != "None" %}
+    <div style="margin: 50px;">
+        <h1>Recommendations</h1> 
+        <div style="display: flex;">
+            {% for event in recomms %}
+            <div style="padding: 20px; margin: 20px; border-radius: 5px; border: solid black 1px;">
+                <strong> {{ event }} </strong>
+                <div>
+                    <a href="{% url 'event' event_title=event %}">Click here</a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

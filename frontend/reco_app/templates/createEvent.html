@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    </head>
+    <body>
+        <h2> 
+            Event Creation 
+        </h2>
+        <div style = "margin: 20px 0px;"> 
+            Please fill in the following details to create event" 
+        </div>
+        {% if message %}
+            <div style = "margin: 20px 0px;"> {{ message }}</div>
+        {% endif %}
+        <form action="{% url 'create_event' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="title" placeholder="Title">
+            </div>
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="date" placeholder="Date">
+            </div>
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="time" placeholder="Time">
+            </div>
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="requirements" placeholder="Requirements">
+            </div>
+            <div class="form-group">
+                <input autofocus class="form-control" type="number" name="capacity" placeholder="Capacity">
+            </div>
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="deadline" placeholder="Deadline">
+            </div>
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="location" placeholder="Location">
+            </div>
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="description" placeholder="Description">
+            </div>
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="tasks" placeholder="Tasks">
+            </div>
+            <input class="btn btn-primary" type="submit" value="Create Event">
+        </form>
+    </body>
+</html>

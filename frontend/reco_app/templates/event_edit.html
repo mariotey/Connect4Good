@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div style="display: flex; justify-content: flex-end; margin: 20px;">
+        {% if username == "None" %}
+            <div>
+                <a href="{% url 'login' %}"> Login </a>        
+            </div>
+        {% else %}
+            <div style = "margin: 0px 10px;">
+                Welcome, 
+                    <a href = "{% url 'user' user_email=user_email %}">{{ username }}</a>
+                !
+            </div>
+            <div>
+                <a href="{% url 'logout' %}"> Logout </a>        
+            </div>
+        {% endif %}
+    </div>
+
+    <form action="{% url 'event_edit' event_title=event_details.title %}" method="post">
+        {% csrf_token %}
+        <div class="form-group" style="display: flex;">
+            <h2> {{event_details.title }} </h2>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Date: </label>
+            <input autofocus class="form-control" type="text" name="date" value="{{event_details.date}}">
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Time: </label>
+            <input autofocus class="form-control" type="text" name="time" value="{{event_details.time}}">
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Requirements: </label>
+            <input autofocus class="form-control" type="text" name="requirements" value="{{event_details.requirements}}">
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Capacity: </label>
+            <input autofocus class="form-control" type="number" name="capacity" value="{{event_details.capacity}}">
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Deadline: </label>
+            <input autofocus class="form-control" type="text" name="deadline" value="{{event_details.deadline}}">
+        </div>  
+        <div class="form-group" style="display: flex;">
+            <label>Location: </label>
+            <input autofocus class="form-control" type="text" name="location" value="{{event_details.location}}">
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Description: </label>
+            <input autofocus class="form-control" type="text" name="description" value="{{event_details.description}}">
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Tasks: </label>
+            <input autofocus class="form-control" type="text" name="tasks" value="{{event_details.tasks}}">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Update Event">
+    </form>
+
+{% endblock %}

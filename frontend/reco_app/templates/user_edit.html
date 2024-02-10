@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div style="display: flex; justify-content: flex-end; margin: 20px;">
+        {% if username == "None" %}
+            <div>
+                <a href="{% url 'login' %}"> Login </a>        
+            </div>
+        {% else %}
+            <div style = "margin: 0px 10px;">
+                Welcome, 
+                    <a href = "{% url 'user' user_email=user_email %}">{{ username }}</a>
+                !
+            </div>
+            <div>
+                <a href="{% url 'logout' %}"> Logout </a>        
+            </div>
+        {% endif %}
+    </div>
+
+    <form action="{% url 'user_edit' user_email=user_email %}" method="post">
+        {% csrf_token %}
+        <div class="form-group" style="display: flex;">
+            <label>Full Name: </label>
+            <input class="form-control" autofocus type="text" name="full_name" value="{{user_details.full_name}}">
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Age: </label>
+            <input class="form-control" type="number" name="age" value="{{user_details.age}}">
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Gender: </label>
+            <select name="gender">
+                <option value="m" {% if gender == "m" %}selected{% endif %}>Male</option>
+                <option value="f" {% if gender == "f" %}selected{% endif %}>Female</option>
+            </select>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Work Status: </label>
+            <select name="work_status">
+                <option value="student" {% if work_status == "student" %}selected{% endif %}>Student</option>
+                <option value="employed" {% if work_status == "employed" %}selected{% endif %}>Employed</option>
+                <option value="unemployed" {% if work_status == "unemployed" %}selected{% endif %}>Unemployed</option>
+            </select>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Immigration Status: </label>
+            <select name="immigration_status">
+                <option value="citizen" {% if immigration_status == "citizen" %}selected{% endif %}>Citizen</option>
+                <option value="pr" {% if immigration_status == "pr" %}selected{% endif %}>PR</option>
+                <option value="student visa" {% if immigration_status == "student visa" %}selected{% endif %}>Student Visa</option>
+                <option value="other" {% if immigration_status == "other" %}selected{% endif %}>Other</option>
+            </select>
+            
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Email: </label>
+            <div>{{user_details.email}}</div>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label>Phone Number: </label>
+            <input class="form-control" type="text" name="phone_number" value="{{user_details.phone_number}}">
+        </div>  
+
+        <div class="form-group" style="display: flex;">
+            <label>Skills: </label>
+            <input class="form-control" type="text" name="skills" value="{{user_details.skills}}">
+        </div>
+
+        <div class="form-group" style="display: flex;">
+            <label>Interests: </label>
+            <input class="form-control" type="text" name="interests" value="{{user_details.interests}}">
+        </div>
+        
+        <div class="form-group" style="display: flex;">
+            <label>Past Experiences </label>
+            <input class="form-control" type="text" name="past_volunteer_experience" value="{{user_details.past_volunteer_experience}}">
+        </div>
+        <input type ="hidden" name = "password" value ="{{user_details.password}}">
+        <input class="btn btn-primary" type="submit" value="Update Profile">
+    </form>
+
+{% endblock %}

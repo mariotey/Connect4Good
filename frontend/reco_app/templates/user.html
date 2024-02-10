@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div style="display: flex; justify-content: flex-end; margin: 20px;">
+        {% if username == "None" %}
+            <div>
+                <a href="{% url 'login' %}"> Login </a>        
+            </div>
+        {% else %}
+            <div style = "margin: 0px 10px;">
+                Welcome, 
+                    <a href = "{% url 'user' user_email=user_email %}">{{ username }}</a>
+                !
+            </div>
+            <div>
+                <a href="{% url 'logout' %}"> Logout </a>        
+            </div>
+        {% endif %}
+    </div>
+
+    <div style="margin: 100px; display:flex;">
+        <div style="width: 100%;">
+            <h1> {{user_details.full_name}} </h1>
+            {% if user_details.email == user_email %}
+                <div>
+                    <a href = "{% url 'user_edit' user_email=user_email %}"> Edit </a>
+                    <a href = "{% url 'user_delete' user_email=user_email %}"> Delete </a>
+                </div>
+            {% endif %}
+
+            <div>
+                Age: {{user_details.age}}
+            </div>
+            <div>
+                Work Status: {{user_details.work_status}}
+            </div>
+            <!-- <div>
+                Admin Status: {{user_details.is_admin}}
+            </div> -->
+            <div>
+                Contact Details: 
+                <ul>
+                    <li>{{user_details.email}}</li>
+                    <li>{{user_details.phone_number}}</li>
+                </ul>
+            </div>
+
+            <div>
+                Skills: {{user_details.skills}}
+            </div>
+            <div>
+                Interests: {{user_details.interests}}
+            </div>
+            <div>
+                Experience: {{user_details.past_volunteer_experience}}
+            </div>
+            <div>
+                Events Registered: {{user_details.events_registered}}
+            </div>
+        </div>
+
+        {% if user_admin %}
+            <div style="width: 100%; justify-content: center;">
+                <div style="text-align: center;">
+                    Admin Rights
+                </div>
+                <div>
+                    <div style="padding: 20px 20px; border: 1px solid; border-radius: 5px; justify-content: center; display: flex; align-items: center; ">
+                        <a href="{% url 'admin_promote' user_email=user_details.email %}">Promote to Admin</a>
+                    </div>
+                    <div style="padding: 20px 20px; border: 1px solid; border-radius: 5px; justify-content: center; display: flex; align-items: center; ">
+                        <a href="{% url 'admin_demote' user_email=user_details.email %}">Demote from Admin</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

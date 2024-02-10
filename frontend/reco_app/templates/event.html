@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div style="display: flex; justify-content: flex-end; margin: 20px;">
+        {% if username == "None" %}
+            <div>
+                <a href="{% url 'login' %}"> Login </a>        
+            </div>
+        {% else %}
+            <div style = "margin: 0px 10px;">
+                Welcome, 
+                    <a href = "{% url 'user' user_email=user_email %}">{{ username }}</a>
+                !
+            </div>
+            <div>
+                <a href="{% url 'logout' %}"> Logout </a>        
+            </div>
+        {% endif %}
+    </div>
+
+    <div style="margin: 100px; display:flex;">
+        <div style="width: 100%;">
+            <h1> {{event.title}} </h1>
+            <div>
+                {{ event.date }}, {{event.time}}
+            </div>
+            <div>
+                Deadline: {{event.deadline}}
+            </div>
+            <div>
+                Location: {{event.location}}
+            </div>
+
+            {% if user_admin %}
+                <div style = "display: flex;">
+                    <a style = "padding: 20px;" href="{% url 'event_edit' event_title=event.title %}"> Edit </a>
+                    <a style = "padding: 20px;" href="{% url 'event_delete' event_title=event.title %}"> Delete </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div style="width: 100%; justify-content: center;">
+            <div style="text-align: center; padding: 20px;">
+                Capacity: {{ event.capacity }}
+            </div>
+            {% if user_admin %}
+                <div style="text-align: center; padding: 20px;"> Participants:
+                    <div style="display: flex; justify-content: center;">    
+                        <ul>
+                            {% for participant in participants %}
+                            <li>
+                                <a href = "{% url 'user' user_email=participant %}"> {{participant}} </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+            <div style="display: flex; justify-content: center;">
+                {% if registered_status %}
+                    <div style="padding: 20px 20px; border: 1px solid; border-radius: 5px; text-align: center; display: flex; align-items: center; ">
+                        <div style="padding: 20px 20px; background-color: red; border-radius: 5px;">
+                            {% if username == "None" %}
+                                <a href = "{% url 'login' %}" style="color: white;"> Login </a>
+                            {% else %}
+                                <a href = "{% url 'event_unreg' event_title=event.title %}" style="color: white;"> Unregister </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div style="padding: 20px 20px; border: 1px solid; border-radius: 5px; text-align: center; display: flex; align-items: center; ">
+                        <div style="padding: 20px 20px; background-color: red; border-radius: 5px;">
+                            {% if username == "None" %}
+                                <a href = "{% url 'login' %}" style="color: white;"> Login </a>
+                            {% else %}
+                                <a href = "{% url 'event_reg' event_title=event.title %}" style="color: white;"> Register </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div style="margin: 100px;">
+        <h2> Event Description </h2>
+        <div>
+            {{ event.description }}
+        </div>
+    </div> 
+
+    <div style="margin: 100px;">
+        <h2> Event Tasks </h2>
+        <div>
+            {{ event.tasks }}
+        </div>
+    </div> 
+
+    <div style="margin: 100px;">
+        <h2> Requirements </h2>
+        <div>
+            {{event.requirements}}
+        </div>
+    </div> 
+
+{% endblock %}
